@@ -1,12 +1,44 @@
 const express = require("express");
+const morgan = require("morgan");
+require("dotenv").config();
+const mongoose = require("mongoose");
+
+
+
 
 const app = express();
 
+const { dbURI } = process.env;
 
+// connect to database
+const connectTodb = async () => {
+    try {
+     await mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
+    console.log("connected to db")
+    }catch (error){
+        throw Error ("unable to connect to db")
+    }
+    // listening for request
+    app.listen(3000);
+};
+
+connectTodb();
 // regster vew engine
 app.set("view engine", "ejs");
-// listening for request
-app.listen(3000);
+
+
+// app.use((req, res, next) => {
+//     console.log("New request made:");
+//     console.log("host:", req.hostname);
+//     console.log("path:", req.path);
+//     console.log("method:", req.method);
+
+//     next();
+// });
+// middleware and static files
+app.use(express.static("public"));
+app.use(morgan("tiny"));
+
 
 app.get("/", (req, res) => {
     const blogs = [
@@ -19,6 +51,12 @@ app.get("/", (req, res) => {
     // Now rendering
     res.render("index", { title: "Home", blogs});
 });
+
+// app.use((req, res, next) => {
+//     console.log("In the next middleware");
+
+//     next();
+// });
 
 
 app.get("/about", (req, res) => {
