@@ -19,12 +19,16 @@ const connectTodb = async () => {
         throw Error ("unable to connect to db")
     }
     // listening for request
-    app.listen(3000);
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, "0.0.0.0", () => {
+        console.log(`Server running on port ${PORT}`);
+});
 };
 
 connectTodb();
 // regster vew engine
 app.set("view engine", "ejs");
+app.set("views", __dirname + "/views");
 
 
 // app.use((req, res, next) => {
