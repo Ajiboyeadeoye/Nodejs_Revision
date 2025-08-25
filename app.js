@@ -28,7 +28,7 @@ const connectTodb = async () => {
 connectTodb();
 // regster vew engine
 app.set("view engine", "ejs");
-app.set("views", __dirname + "/views");
+app.set("views", path.join(__dirname, "views"));
 
 
 // app.use((req, res, next) => {
