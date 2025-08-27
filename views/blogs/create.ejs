@@ -1,24 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<%- include("./partials/head.ejs") %>
+<%- include("../partials/head.ejs") %>
 
 <body>
     
-    <%- include("./partials/nav.ejs") %>
+    <%- include("../partials/nav.ejs") %>
     
     <div class="create-blog content">
         <form action="/blogs" method="POST">
             <label for="title">Blog title</label>
             <input type="text" id="title" name="title" requred>
-            <label for="snppet">Blog snippet</label>
+            <label for="snippet">Blog snippet</label>
             <input type="text" id="snippet" name="snippet" requred>
             <label for="body">Blog body</label>
             <textarea id="body" name="body" requred></textarea>
-            <button>submit</button>
+            <button class="btn-submit">submit</button>
         </form>
     </div>
 
-<%- include("./partials/footer.ejs") %>
+    <script>
+        const submitBtn = document.querySelector('.btn-submit');
+
+        function submitAlert() {
+            alert('All fields filled?')
+        };
+
+        submitBtn.addEventListener('click', submitAlert)
+
+    </script>
+
+<%- include("../partials/footer.ejs") %>
 </body>
 </html>

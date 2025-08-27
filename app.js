@@ -5,6 +5,10 @@ const mongoose = require("mongoose");
 const Blog = require("./models/blog");
 
 
+const blogRoutes = require("./routes/blogsRoutes");
+const path = require("path");
+
+
 
 
 const app = express();
@@ -20,12 +24,16 @@ const connectTodb = async () => {
         throw Error ("unable to connect to db")
     }
     // listening for request
-    app.listen(3000);
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, "0.0.0.0", () => {
+        console.log(`Server running on port ${PORT}`);
+});
 };
 
 connectTodb();
 // regster vew engine
 app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
 
 // app.use((req, res, next) => {
@@ -95,6 +103,8 @@ app.get("/about", (req, res) => {
 
 })
 
+// blog routes
+app.use('/blogs', blogRoutes);
 
 // redirect
 // app.get("/about-us", (req, res) => {
@@ -131,6 +141,19 @@ app.get("/blogs/:id", (req, res) => {
 app.get("/blogs/create", (req, res) => {
     res.render("create", { title: "New blog"});
 })
+
+
+
+//  const blogs = [
+//     { title : "Yoshi fnds eggs", snippet: "Lorem ipsum dolor sit among the orator"},
+//     { title : "Kenny fnds yam", snippet: "Lorem ipsum dolor sit among the orator"},
+//     { title : "Adeoye finds rice", snippet: "Lorem ipsum dolor sit among the orator"}
+//     ];
+//     //res.send('<p>Home page</p>')
+//     //res.sendFile("./views/index.html", { root: __dirname})
+//     // Now rendering
+//     res.render("index", { title: "Home", blogs});
+
 
 
 
