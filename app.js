@@ -13,12 +13,12 @@ const path = require("path");
 
 const app = express();
 
-const { dbURL, dbURL1 } = process.env;
+const { DB_URL, dbURL1 } = process.env;
 
 // connect to database
 const connectTodb = async () => {
     try {
-     await mongoose.connect(dbURL, { useNewUrlParser: true, useUnifiedTopology: true });
+     await mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
     console.log("connected to db")
     }catch (error){
         throw Error ("unable to connect to db")
