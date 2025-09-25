@@ -18,10 +18,11 @@ const { DB_URL, dbURL1 } = process.env;
 // connect to database
 const connectTodb = async () => {
     try {
-     await mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+     await mongoose.connect(dbURL1, { useNewUrlParser: true, useUnifiedTopology: true });
     console.log("connected to db")
     }catch (error){
-        throw Error ("unable to connect to db")
+        console.error("Unable to connect to DB", error)
+        //throw Error ("unable to connect to db")
     }
     // listening for request
     const PORT = process.env.PORT || 3000;
